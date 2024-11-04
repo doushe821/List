@@ -1,6 +1,8 @@
 #ifndef LIST_STRUCT_H_INCLUDED
 #define LIST_STRUCT_H_INLUDED
 
+#include "Stack/StackStruct.h"
+
 struct Navigation
 {
     size_t next;
@@ -13,7 +15,7 @@ struct List_t
     Navigation* ind;
     size_t size;
     size_t elsize;
-    size_t free;
+    Stack_t* FreeStk;
 };
 
 

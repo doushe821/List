@@ -20,14 +20,17 @@ enum Errors
 
 struct List_t;
 
-int ListInit(List_t** list, size_t ListSize, size_t ElSize);
-int ListDstr(List_t* list);
-int PushFront(List_t* list, void* vlaue);
-int PushInd(List_t* list, void* value, size_t ind);
-int PushTail(List_t* list, void* value);
+int ListInit  (List_t** list, size_t ListSize, size_t ElSize);
+int ListDstr  (List_t* list);
 
-#ifndef NDEBUG
-int QDump(List_t* list);
-#endif
+int PushFront (List_t* list, void* value            );
+int PushTail  (List_t* list, void* value            );
+int PushInd   (List_t* list, void* value, size_t ind);
+
+int RemInd    (List_t* list, void* dest,  size_t ind);
+int RemFront  (List_t* list, void* dest             );
+int RemTail   (List_t* list, void* dest             );
+
+int Linearize(List_t* list);
 
 #endif
