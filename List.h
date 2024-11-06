@@ -13,9 +13,12 @@
 
 enum Errors
 {
+    NO_ERRORS = 0,
     NULL_LIST_POINTER = 1,
     LIST_OVERFLOW,
     PUSHING_AFTER_NONE,
+    FILE_CREATION_ERROR,
+
 };
 
 struct List_t;
@@ -31,6 +34,8 @@ int RemInd    (List_t* list, void* dest,  size_t ind);
 int RemFront  (List_t* list, void* dest             );
 int RemTail   (List_t* list, void* dest             );
 
-int Linearize(List_t* list);
+int GraphDump(List_t* list);
+
+int ListVer(List_t* list);
 
 #endif

@@ -36,7 +36,7 @@ label = "<f0> 6 |<f1> DATA = 35|<f2> NEXT = 8|<f3>PREV = 5"
 shape = "record"
 ];
 "node7" [
-label = "<f0> 7 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
+label = "<f0> 7 |<f1> DATA = 108117115116|<f2> NEXT = 12|<f3>PREV = 8711111400000001"
 shape = "record"
 ];
 "node8" [
@@ -55,191 +55,31 @@ shape = "record"
 label = "<f0> 11 |<f1> DATA = 27|<f2> NEXT = 1|<f3>PREV = 0"
 shape = "record"
 ];
-"node12" [
-label = "<f0> 12 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node13" [
-label = "<f0> 13 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node14" [
-label = "<f0> 14 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node15" [
-label = "<f0> 15 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node16" [
-label = "<f0> 16 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node17" [
-label = "<f0> 17 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node18" [
-label = "<f0> 18 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node19" [
-label = "<f0> 19 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node20" [
-label = "<f0> 20 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node21" [
-label = "<f0> 21 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node22" [
-label = "<f0> 22 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node23" [
-label = "<f0> 23 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node24" [
-label = "<f0> 24 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node25" [
-label = "<f0> 25 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node26" [
-label = "<f0> 26 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node27" [
-label = "<f0> 27 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node28" [
-label = "<f0> 28 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node29" [
-label = "<f0> 29 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node30" [
-label = "<f0> 30 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node31" [
-label = "<f0> 31 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node32" [
-label = "<f0> 32 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node33" [
-label = "<f0> 33 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node34" [
-label = "<f0> 34 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node35" [
-label = "<f0> 35 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node36" [
-label = "<f0> 36 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node37" [
-label = "<f0> 37 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node38" [
-label = "<f0> 38 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node39" [
-label = "<f0> 39 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node40" [
-label = "<f0> 40 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node41" [
-label = "<f0> 41 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node42" [
-label = "<f0> 42 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node43" [
-label = "<f0> 43 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node44" [
-label = "<f0> 44 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node45" [
-label = "<f0> 45 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node46" [
-label = "<f0> 46 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node47" [
-label = "<f0> 47 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node48" [
-label = "<f0> 48 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node49" [
-label = "<f0> 49 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node50" [
-label = "<f0> 50 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
-"node51" [
-label = "<f0> 51 |<f1> DATA = 108117115116|<f2> NEXT = 8711111400000001|<f3>PREV = 8711111400000001"
-shape = "record"
-];
 "free" [
 label = "<f0> fre|<f1> 7"
 shape = "record"
 ];
-"node0":f2 -> "node11":f0 [id = 0];
-"node0":f3 -> "node10":f0 [id = 1];
-"node1":f2 -> "node2":f0 [id = 2];
-"node1":f3 -> "node11":f0 [id = 3];
-"node2":f2 -> "node3":f0 [id = 4];
-"node2":f3 -> "node1":f0 [id = 5];
-"node3":f2 -> "node4":f0 [id = 6];
-"node3":f3 -> "node2":f0 [id = 7];
-"node4":f2 -> "node5":f0 [id = 8];
-"node4":f3 -> "node3":f0 [id = 9];
-"node5":f2 -> "node6":f0 [id = 10];
-"node5":f3 -> "node4":f0 [id = 11];
-"node6":f2 -> "node8":f0 [id = 12];
-"node6":f3 -> "node5":f0 [id = 13];
-"node8":f2 -> "node9":f0 [id = 14];
-"node8":f3 -> "node6":f0 [id = 15];
-"node9":f2 -> "node10":f0 [id = 16];
-"node9":f3 -> "node8":f0 [id = 17];
-"node10":f2 -> "node0":f0 [id = 18];
-"node10":f3 -> "node9":f0 [id = 19];
-"node11":f2 -> "node1":f0 [id = 20];
-"node11":f3 -> "node0":f0 [id = 21];
+"node0":f2 -> "node11" :f0 [id = 0, constraint=false, color="blue"];
+"node0":f3 -> "node10" :f0 [id = 1, constraint=false, color="red"];
+"node1":f2 -> "node2" :f0 [id = 2, constraint=false, color="blue"];
+"node1":f3 -> "node11" :f0 [id = 3, constraint=false, color="red"];
+"node2":f2 -> "node3" :f0 [id = 4, constraint=false, color="blue"];
+"node2":f3 -> "node1" :f0 [id = 5, constraint=false, color="red"];
+"node3":f2 -> "node4" :f0 [id = 6, constraint=false, color="blue"];
+"node3":f3 -> "node2" :f0 [id = 7, constraint=false, color="red"];
+"node4":f2 -> "node5" :f0 [id = 8, constraint=false, color="blue"];
+"node4":f3 -> "node3" :f0 [id = 9, constraint=false, color="red"];
+"node5":f2 -> "node6" :f0 [id = 10, constraint=false, color="blue"];
+"node5":f3 -> "node4" :f0 [id = 11, constraint=false, color="red"];
+"node6":f2 -> "node8" :f0 [id = 12, constraint=false, color="blue"];
+"node6":f3 -> "node5" :f0 [id = 13, constraint=false, color="red"];
+"node8":f2 -> "node9" :f0 [id = 14, constraint=false, color="blue"];
+"node8":f3 -> "node6" :f0 [id = 15, constraint=false, color="red"];
+"node9":f2 -> "node10" :f0 [id = 16, constraint=false, color="blue"];
+"node9":f3 -> "node8" :f0 [id = 17, constraint=false, color="red"];
+"node10":f2 -> "node0" :f0 [id = 18, constraint=false, color="blue"];
+"node10":f3 -> "node9" :f0 [id = 19, constraint=false, color="red"];
+"node11":f2 -> "node1" :f0 [id = 20, constraint=false, color="blue"];
+"node11":f3 -> "node0" :f0 [id = 21, constraint=false, color="red"];
 "free":f1 -> "node7"f0 [id = 22];
 }
