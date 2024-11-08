@@ -5,6 +5,9 @@ const size_t FREE = 0x1EF2B5AC988A01;
 const size_t POISON = 0x192C4840EC;
 const size_t NULL_ELEM = 0;
 
+static int MemCheck  (List_t* list);
+static int ListResize(List_t* list);
+
 int ListInit(List_t** list, size_t ListSize, size_t ElSize)
 {
     if(list == NULL)
@@ -17,20 +20,22 @@ int ListInit(List_t** list, size_t ListSize, size_t ElSize)
     
     (*list)->data = calloc(ListSize + 1, ElSize);
     
-    (*list)->ind = (Navigation*)calloc(ListSize, sizeof(Navigation));
+    (*list)->ref = (NodeRefferences*)calloc(ListSize, sizeof(NodeRefferences));
 
     (*list)->size = ListSize;
     
     for(size_t i = 1; i < ListSize; i++)
     {
         memcpy((char*)(*list)->data + i * (*list)->elsize, &POISON, (*list)->elsize);
-        (*list)->ind[i].next = i + 1;
-        (*list)->ind[i].prev = FREE;
+        (*list)->ref[i].next = i + 1;
+        (*list)->ref[i].prev = FREE;
     }
-
+    (*list)->ref[ListSize - 1].next = NULL_ELEM;
     (*list)->free = 1;
-    (*list)->ind[0].next = 0;
-    (*list)->ind[0].prev = 0;
+    (*list)->ref[NULL_ELEM].next = NULL_ELEM;
+    (*list)->ref[NULL_ELEM].prev = NULL_ELEM;
+
+    (*list)->dumpNum = 0;
     
     return NO_ERRORS;
 }
@@ -43,58 +48,97 @@ int ListDstr(List_t* list)
     }
 
     free(list->data);
-    free(list->ind);
+    free(list->ref);
     free(list);
     return NO_ERRORS;
 }
 
 int PushFront(List_t* list, void* value)
 {
+    if(list == NULL)
+    {
+        return NULL_LIST_POINTER;
+    }
+    if(MemCheck(list) != 0)
+    {
+        return REALLOC_FAILURE;
+    }
     size_t prevFree = list->free;
-    list->free = list->ind[prevFree].next;
+    list->free = list->ref[prevFree].next;
 
     memcpy((char*)list->data + prevFree * list->elsize, value, list->elsize);
 
-    list->ind[list->ind[NULL_ELEM].prev].next = prevFree;
-    list->ind[prevFree].prev = list->ind[NULL_ELEM].prev;
-    list->ind[prevFree].next = NULL_ELEM;
+    list->ref[list->ref[NULL_ELEM].prev].next = prevFree;
+    list->ref[prevFree].prev = list->ref[NULL_ELEM].prev;
+    list->ref[prevFree].next = NULL_ELEM;
 
-    list->ind[0].prev = prevFree;
+    list->ref[0].prev = prevFree;
     
     return NO_ERRORS;
 }
 
 int PushTail(List_t* list, void* value)
 {
+    if(list == NULL)
+    {
+        return NULL_LIST_POINTER;
+    }
+    if(MemCheck(list) != 0)
+    {
+        return REALLOC_FAILURE;
+    }
     size_t prevFree = list->free;
-    list->free = list->ind[prevFree].next;
+    list->free = list->ref[prevFree].next;
 
     memcpy((char*)list->data + prevFree * list->elsize, value, list->elsize);
 
-    list->ind[prevFree].prev = NULL_ELEM;
-    list->ind[prevFree].next = list->ind[NULL_ELEM].next;
+    list->ref[prevFree].prev = NULL_ELEM;
+    list->ref[prevFree].next = list->ref[NULL_ELEM].next;
 
-    list->ind[list->ind[NULL_ELEM].next].prev = prevFree;
+    list->ref[list->ref[NULL_ELEM].next].prev = prevFree;
 
-    list->ind[NULL_ELEM].next = prevFree;
+    list->ref[NULL_ELEM].next = prevFree;
 
     return NO_ERRORS;
 }
 
 int PushInd(List_t* list, void* value, size_t ind)
 {
+    if(list == NULL)
+    {
+        return NULL_LIST_POINTER;
+    }
+    if(MemCheck(list) != 0)
+    {
+        return REALLOC_FAILURE;
+    }
     size_t prevFree = list->free;
-    list->free = list->ind[prevFree].next;
+    list->free = list->ref[prevFree].next;
 
     memcpy((char*)list->data + prevFree * list->elsize, value, list->elsize);
 
-    list->ind[prevFree].prev = ind;
-    list->ind[prevFree].next = list->ind[ind].next;
+    list->ref[prevFree].prev = ind;
+    list->ref[prevFree].next = list->ref[ind].next;
     
-    list->ind[list->ind[ind].next].prev = prevFree;
-    list->ind[ind].next = prevFree;
+    list->ref[list->ref[ind].next].prev = prevFree;
+    list->ref[ind].next = prevFree;
 
-    return NO_ERRORS;
+    return NO_ERRORS; 
+}
+
+NodeInfo LNodeInfo(List_t* list, size_t ind)
+{    
+    NodeInfo info = {};
+    if(list == NULL)
+    {
+        info.err = NULL_LIST_POINTER;
+        return info;
+    }
+    info.err = 0;
+    info.next = list->ref[ind].next;
+    info.prev = list->ref[ind].prev;
+    info.data = (char*)list->data + ind * list->elsize;
+    return info;
 }
 
 int RemInd(List_t* list, void* dest, size_t ind)
@@ -105,11 +149,11 @@ int RemInd(List_t* list, void* dest, size_t ind)
     memcpy(dest, (char*)list->data + ind * list->elsize, list->elsize);
     memcpy((char*)list->data + ind * list->elsize, &POISON, list->elsize);
     
-    list->ind[list->ind[ind].next].prev = list->ind[ind].prev;
-    list->ind[list->ind[ind].prev].next = list->ind[ind].next;
+    list->ref[list->ref[ind].next].prev = list->ref[ind].prev;
+    list->ref[list->ref[ind].prev].next = list->ref[ind].next;
 
-    list->ind[ind].prev = FREE;
-    list->ind[ind].next = prevFree;
+    list->ref[ind].prev = FREE;
+    list->ref[ind].next = prevFree;
 
     return NO_ERRORS;
 }
@@ -117,14 +161,14 @@ int RemInd(List_t* list, void* dest, size_t ind)
 int RemFront(List_t* list, void* dest)
 {
     size_t prevFree = list->free;
-    list->free = list->ind[NULL_ELEM].prev;
-    list->ind[list->ind[NULL_ELEM].prev].next = prevFree;
+    list->free = list->ref[NULL_ELEM].prev;
+    list->ref[list->ref[NULL_ELEM].prev].next = prevFree;
 
-    memcpy(dest, (char*)list->data + list->ind[0].prev * list->elsize, list->elsize);
-    memcpy((char*)list->data + list->ind[0].prev * list->elsize, &POISON, list->elsize);
+    memcpy(dest, (char*)list->data + list->ref[0].prev * list->elsize, list->elsize);
+    memcpy((char*)list->data + list->ref[0].prev * list->elsize, &POISON, list->elsize);
 
-    list->ind[0].prev = list->ind[list->ind[0].prev].prev;
-    list->ind[list->ind[NULL_ELEM].prev].prev = FREE;
+    list->ref[0].prev = list->ref[list->ref[0].prev].prev;
+    list->ref[list->ref[NULL_ELEM].prev].prev = FREE;
 
     return NO_ERRORS;
 }
@@ -132,23 +176,68 @@ int RemFront(List_t* list, void* dest)
 int RemTail(List_t* list, void* dest)
 {
     size_t prevFree = list->free;
-    list->free = list->ind[NULL_ELEM].next;
-    list->ind[list->ind[NULL_ELEM].next].next = prevFree;
+    list->free = list->ref[NULL_ELEM].next;
+    list->ref[list->ref[NULL_ELEM].next].next = prevFree;
 
-    memcpy(dest, (char*)list->data + list->ind[0].next * list->elsize, list->elsize);
+    memcpy(dest, (char*)list->data + list->ref[0].next * list->elsize, list->elsize);
 
-    memcpy((char*)list->data + list->ind[0].next * list->elsize, &POISON, list->elsize);
+    memcpy((char*)list->data + list->ref[0].next * list->elsize, &POISON, list->elsize);
 
-    list->ind[0].next = list->ind[list->ind[0].next].next;
-    list->ind[list->ind[NULL_ELEM].next].prev = FREE;
+    list->ref[0].next = list->ref[list->ref[0].next].next;
+    list->ref[list->ref[NULL_ELEM].next].prev = FREE;
 
     return NO_ERRORS;
 }
 
-int GraphDump(List_t* list)
+static int MemCheck(List_t* list)
+{
+    if(list->ref[list->free].next == NULL_ELEM)
+    {
+        list->ref[list->free].next = list->size;
+        if(ListResize(list) != 0)
+        {
+            return REALLOC_FAILURE;
+        }
+        for(size_t i = list->ref[list->free].next; i < list->size; i++)
+        {
+            memcpy((char*)list->data + i * list->elsize, &POISON, list->elsize);
+            list->ref[i].next = i + 1;
+            list->ref[i].prev = FREE;
+        }
+        list->ref[list->size - 1].next = 0;
+    }
+    return NO_ERRORS;
+}
+
+static int ListResize(List_t* list)
+{
+    void* ptr = realloc(list->data, list->size * list->elsize * REALLOC_COEFF);
+    if(ptr == NULL)
+    {
+        return REALLOC_FAILURE;
+    }
+    list->data = ptr;
+
+    ptr = realloc(list->ref, list->size * sizeof(NodeRefferences) * REALLOC_COEFF);
+    if(ptr == NULL)
+    {
+        return REALLOC_FAILURE;
+    }
+    list->ref = (NodeRefferences*)ptr;
+
+    list->size *= REALLOC_COEFF;
+    return NO_ERRORS;
+}
+
+int GraphDump(List_t* list, void DumpFunc(const void* value, FILE* fp))
 {
     FILE* fp = NULL;
-    if((fp = fopen("lin.dot", "w+b")) == NULL)
+    if(list->dumpNum == 0)
+    {
+        system("mkdir ListLog");
+    }
+
+    if((fp = fopen("ListLog/lin.dot", "w+b")) == NULL)
     {
         fprintf(stderr, "Can't create output file\n");
         return FILE_CREATION_ERROR;
@@ -168,12 +257,12 @@ int GraphDump(List_t* list)
 
     for(size_t i = 0; i < list->size; i++)
     {
-        if(list->ind[i].prev == FREE)
+        if(list->ref[i].prev == FREE)
         {
             if(i == list->free)
             {
                 fprintf(fp, "\"node%zu\" [\n", i);
-                fprintf(fp, "label = \"<f0> %zu |<f1> DATA = %zu|<f2> NEXT = %zu|<f3>PREV = %zu\"\n", i, POISON, list->ind[list->free].next, FREE);
+                fprintf(fp, "label = \"<f0> %zu |<f1> DATA = %zu|<f2> NEXT = %zu|<f3>PREV = %zu\"\n", i, POISON, list->ref[list->free].next, FREE);
                 fprintf(fp, "shape = \"record\"\n");
                 fprintf(fp, "];\n");
             }
@@ -185,7 +274,9 @@ int GraphDump(List_t* list)
         else
         {
             fprintf(fp, "\"node%zu\" [\n", i);
-            fprintf(fp, "label = \"<f0> %zu |<f1> DATA = %d|<f2> NEXT = %zu|<f3>PREV = %zu\"\n", i, *(int*)((char*)list->data + i * list->elsize), list->ind[i].next, list->ind[i].prev);
+            fprintf(fp, "label = \"<f0> %zu |<f1> DATA = ", i);
+            DumpFunc((char*)list->data + i * list->elsize, fp);
+            fprintf(fp, "|<f2> NEXT = %zu|<f3>PREV = %zu\"\n", list->ref[i].next, list->ref[i].prev);
             fprintf(fp, "shape = \"record\"\n");
             fprintf(fp, "];\n");
         }
@@ -195,27 +286,30 @@ int GraphDump(List_t* list)
     fprintf(fp, "label = \"<f0> fre|<f1> %zu\"\n", list->free);
     fprintf(fp, "shape = \"record\"\n");
     fprintf(fp, "];\n");
-    
-    size_t CCounter = 0;
 
     for(size_t i = 0; i < list->size; i++)
     {
-        if(list->ind[i].prev == FREE)
+        if(list->ref[i].prev == FREE)
         {
             continue;
         }
         else
         {
-            fprintf(fp, "\"node%zu\":f2 -> \"node%zu\" :f0 [id = %zu, constraint=false, color=\"blue\"];\n", i, list->ind[i].next, CCounter++);
-            fprintf(fp, "\"node%zu\":f3 -> \"node%zu\" :f0 [id = %zu, constraint=false, color=\"red\"];\n", i, list->ind[i].prev, CCounter++);
+            fprintf(fp, "\"node%zu\":f2 -> \"node%zu\"[color=\"blue\"];\n", i, list->ref[i].next);
+            fprintf(fp, "\"node%zu\":f3 -> \"node%zu\"[color=\"red\"];\n", i, list->ref[i].prev);
         }
-        //fprintf(fp, "\"node%zu\":f0 -> \"node%zu\" : f0 [id = %zu, ]");
+        fprintf(fp, "\"node%zu\"-> \"node%zu\" [weight=69, color=white]", i, i + 1);
     }
 
-    fprintf(fp, "\"free\":f1 -> \"node%zu\"f0 [id = %zu];\n", list->free, CCounter++);
+    fprintf(fp, "\"free\":f1 -> \"node%zu\"f0;\n", list->free);
 
     fprintf(fp, "}");
     fclose(fp);
-    system("dot -Tpdf lin.dot -o lin.pdf\n"); 
+
+    char Dump[FILENAME_MAX] = {};
+    sprintf(Dump, "cd ListLog\ndot -Tpdf lin.dot -o dump%zu.pdf\n", list->dumpNum);
+    system(Dump);
+    list->dumpNum++;
+
     return NO_ERRORS;
 }

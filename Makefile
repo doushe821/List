@@ -25,4 +25,4 @@ $(DEPS) : $(OUT_O_DIR)/%.d : %.cpp
 	$(CC) -E $(CFLAGS) $< -MM -MT $(@:.d=.o) > $@
 
 clean:
-	rm -rf *.o l
+	rm -rf *.o l *.pdf *.dot
